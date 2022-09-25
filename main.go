@@ -4,6 +4,7 @@ import (
 	"dumbflix/database"
 	"dumbflix/pkg/mysql"
 	"dumbflix/routes"
+	"encoding/json"
 	"fmt"
 	"net/http"
 	"os"
@@ -29,7 +30,11 @@ func main() {
 	database.RunMigration()
 
 	r := mux.NewRouter()
-
+	r.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Content-Type", "application/json")
+		w.WriteHeader(http.StatusOK)
+		json.NewEncoder(w).Encode("Hello World")
+	})
 	routes.RouteInit(r.PathPrefix("/api/v1").Subrouter())
 
 	//path file
@@ -44,5 +49,5 @@ func main() {
 	fmt.Println("server running localhost:" + port)
 
 	// Embed the setup allowed in 2 parameter on this below code
-	http.ListenAndServe("localhost:"+port, handlers.CORS(AllowedHeaders, AllowedMethods, AllowedOrigins)(r))
+	http.ListenAndServe(":"+port, handlers.CORS(AllowedHeaders, AllowedMethods, AllowedOrigins)(r))
 }
