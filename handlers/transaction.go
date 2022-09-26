@@ -104,7 +104,7 @@ func (h *handlerTransaction) CreateTransaction(w http.ResponseWriter, r *http.Re
 		DueDate:   dueDate,
 		UserID:    userId,
 		Price:     30000,
-		Status:    "active",
+		Status:    "pending",
 	}
 
 	newTransaction, err := h.TransactionRepository.CreateTransaction(transaction)
