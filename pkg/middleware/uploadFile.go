@@ -61,7 +61,7 @@ func UploadFile(next http.HandlerFunc) http.HandlerFunc {
 		// filename := data[8:] // split uploads/
 
 		// add filename to ctx
-		ctx := context.WithValue(r.Context(), "dataFile", data)
+		ctx := context.WithValue(r.Context(), "thumbnailfilm", data)
 		next.ServeHTTP(w, r.WithContext(ctx))
 	})
 }
