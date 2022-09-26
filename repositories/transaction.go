@@ -60,7 +60,7 @@ func (r *repository) UpdateTransaction(status string, ID string) error {
 	r.db.First(&transactionData, ID)
 	transactionData.Status = status
 
-	err := r.db.Save(&transaction).Error
+	err := r.db.Save(&transactionData).Error
 
 	return err
 }
