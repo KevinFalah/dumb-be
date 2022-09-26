@@ -11,6 +11,7 @@ import (
 	"net/http"
 	"os"
 	"strconv"
+
 	"github.com/cloudinary/cloudinary-go/v2"
 	"github.com/cloudinary/cloudinary-go/v2/api/uploader"
 	"github.com/go-playground/validator/v10"
@@ -66,17 +67,17 @@ func (h *handlerFilm) CreateFilm(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 
 	// Variable untuk memanggil uploadFile
-	dataContex := r.Context().Value("image")
+	dataContex := r.Context().Value("thumbnailfilm")
 	filepath := dataContex.(string)
 
 	category_id, _ := strconv.Atoi(r.FormValue("category_id"))
 	request := filmdto.CreateFilmRequest{
-		Title: r.FormValue("title"),
+		Title:         r.FormValue("title"),
 		ThumbnailFilm: filepath,
-		Year:        r.FormValue("year"),
-		Description: r.FormValue("description"),
-		LinkFilm:    r.FormValue("linkfilm"),
-		CategoryID:  category_id,
+		Year:          r.FormValue("year"),
+		Description:   r.FormValue("description"),
+		LinkFilm:      r.FormValue("linkfilm"),
+		CategoryID:    category_id,
 	}
 
 	validation := validator.New()
